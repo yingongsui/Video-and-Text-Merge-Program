@@ -12,7 +12,7 @@ def getvideoinfo(fname):                        #用cv2获取视频信息
     return (width,height,round(frames),round(duration))             #返回总帧数
 
 def typecheck(filelist):
-    filetype = ['.mp4','.avi','.txt','.mp3','.aac','.ml']
+    filetype = ['.mp4','.avi','.txt','.mp3','.aac']
     
     i = 0
     for t in filetype:
@@ -56,7 +56,7 @@ class MyTextViewer(QTextBrowser):                        #创建自己的类，�
                     elif typecheck(fn) == ".aac" or typecheck(fn) == ".mp3":           #若是视频文件，获取视频信息，并将txt文件地址变为ffmpeg可识别的内容格式                       
                         self.textadd( "File" + str(self.filenum) + " : " + fn)
                         self.allfileslist.append(fn)                   #将新选择的文件添加进列表
-                    elif typecheck(fn) == ".mp4" or typecheck(fn) == ".avi" or typecheck(fn) == ".ml" :           #若是视频文件，获取视频信息，并将txt文件地址变为ffmpeg可识别的内容格式
+                    elif typecheck(fn) == ".mp4" or typecheck(fn) == ".avi" :           #若是视频文件，获取视频信息，并将txt文件地址变为ffmpeg可识别的内容格式
                         (w,h,frames,duration) = getvideoinfo(fn)       #获取长宽帧数
                         self.textadd( "File" + str(self.filenum) + " : " + fn)
                         tem = "Resolution : " + str(w) + "x" + str(h) +"  Frames : " + str(frames) + " Duration : " + str(duration) +"s"
