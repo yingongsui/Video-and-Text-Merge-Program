@@ -40,14 +40,11 @@ def isexist(allfilelist,merglist,ffmpegpath,Wid):
             return (True)
 
 def typecheck(filelist):        #文件格式
-    filetype = ['.mp4','.avi','.txt','.mp3','.aac','.ml']
+    filetype = ['.mp4','.avi','.txt','.mp3','.aac']
     
     i = 0
     for t in filetype:
         if t in filelist:
-            if t == '.ml':
-                return('.mp4')
-            else:
                 return(t)
 
     return(False)
@@ -134,7 +131,7 @@ class VideoMerge(QMainWindow):      #新建的类是从QDialog继承下来的，
                 self.openfilepath = prefilepath[0]             #设定下次打开文件路径
                 if ".txt" in fn:
                     pass
-                elif typecheck(fn) == ".mp4" or typecheck(fn) == ".ml":           #若是视频文件，获取视频信息，并将txt文件地址变为ffmpeg可识别的内容格式
+                elif typecheck(fn) == ".mp4" :           #若是视频文件，获取视频信息，并将txt文件地址变为ffmpeg可识别的内容格式
                     (w,h,frames) = getvideoinfo(fn)       #获取长宽帧数
                     tem = "Resolution : " + str(w) + "x" + str(h) +"  Frames : " + str(frames)
                     textadd(self.ui.MyTBrowser ," "*(10+len(str(self.ui.MyTBrowser.filenum))) + "->" + tem)
@@ -158,9 +155,6 @@ class VideoMerge(QMainWindow):      #新建的类是从QDialog继承下来的，
             if  typecheck(allfileslist[0]) == ".txt":
                 outname = self.ui.MyTBrowser.filepath + "/newmergefile.txt"    #返回原格式
                 self.ui.progressBar.setRange(0,self.ui.MyTBrowser.alllines)               
-            elif  typecheck(allfileslist[0]) == ".ml":
-                outname = self.ui.MyTBrowser.filepath + "/newmergefile.mp4"    #返回原格式
-                self.ui.progressBar.setRange(0,self.ui.MyTBrowser.allframes)
             else:
                 outname = self.ui.MyTBrowser.filepath + "/newmergefile" +  str(typecheck(allfileslist[0]))     #返回原格式
                 self.ui.progressBar.setRange(0,self.ui.MyTBrowser.allframes)
